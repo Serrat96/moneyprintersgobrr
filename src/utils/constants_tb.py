@@ -21,3 +21,8 @@ countries_list = ["AF", "AX", "AL", "DZ", "AS", "AD", "AO", "AI", "AQ", "AG", "A
 "TH", "TL", "TG", "TK", "TO", "TT", "TN", "TR", "TM", "TC", "TV",
 "UG", "UA", "AE", "GB", "US", "UM", "UY", "UZ", "VU", "VE", "VN",
 "VG", "VI", "WF", "EH", "YE", "ZM", "ZW"]
+
+
+four_line_palette = ['#F63366', '#F97699', '#48A9A6', '#66D7D1']
+
+two_line_palette = ['#F63366', '#66D7D1']

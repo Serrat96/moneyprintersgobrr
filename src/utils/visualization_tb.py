@@ -1,10 +1,4 @@
-from plotly.subplots import make_subplots
-import plotly.graph_objects as go
-import plotly.express as px
-import plotly.figure_factory as ff
-
 import matplotlib.pyplot as plt
-import seaborn as sns
 
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
