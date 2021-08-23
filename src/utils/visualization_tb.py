@@ -28,7 +28,7 @@ class st_plotter:
     @staticmethod
     def line_plotter(dict_, start_date, end_date, title = "", tickformat = "", palette = False):
         dfs, legends, secondary_ys, names = dict_["dfs"], dict_["legends"], dict_["secondary_ys"], dict_["names"]
-        # General settings
+        # General settings
         start_date_str = str(start_date)
         end_date_str = str(end_date)
         palette_ = px.colors.qualitative.Plotly
@@ -48,7 +48,7 @@ class st_plotter:
         # Layout
         fig.update_layout(title = title, xaxis_rangeslider_visible = False, title_font_size = 30)
 
-        # Axes
+        # Axes
         fig.update_xaxes(rangeslider_thickness = 0.1, showgrid = False)
         fig.update_yaxes(title_text = names[0], tickformat = tickformat, secondary_y = False, showgrid = False, zeroline = False)
         if len(names) > 1:
@@ -90,7 +90,7 @@ class notebook_plotter:
         # Calculating the number of rows from number of columns and variables to plot
         n_rows_ = self.__n_rows(df, n_columns)
 
-        # Creating the figure and as many axes as needed
+        # Creating the figure and as many axes as needed
         fig, axes = plt.subplots(n_rows_, n_columns, figsize = figsize)
         # To keep the count of the plotted variables
         count = 0
