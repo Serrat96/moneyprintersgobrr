@@ -133,3 +133,7 @@ cosas_utiles/
 
 #Proyecto_anterior
 0_history/
+
+# MAC
+.idea/
+.DS_Store
