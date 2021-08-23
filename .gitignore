@@ -131,3 +131,6 @@ dmypy.json
 #Cosas utiles
 .cosas_utiles/
 cosas_utiles/Introducción A La Econometría - 4edi.pdf
+
+#Proyecto_anterior
+.0_history/
