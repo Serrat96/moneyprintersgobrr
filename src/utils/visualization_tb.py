@@ -43,16 +43,17 @@ class st_plotter:
         # Iterate over
         for ind, df in enumerate(dfs):
             filtered_df = processor.filter_between_dates(df, start_date_str, end_date_str)
-            fig.add_trace(go.Scatter(x = filtered_df.index, y = filtered_df["Value"], name = legends[ind], line = dict(color = palette_[ind])), secondary_y = secondary_ys[ind])
+            fig.add_trace(go.Scatter(x=filtered_df.index, y=filtered_df.iloc[:, 0], name=legends[ind],
+                                     line=dict(color = palette_[ind])), secondary_y=secondary_ys[ind])
         
         # Layout
         fig.update_layout(title = title, xaxis_rangeslider_visible = False, title_font_size = 30)
 
         # Axes
-        fig.update_xaxes(rangeslider_thickness = 0.1, showgrid = False)
-        fig.update_yaxes(title_text = names[0], tickformat = tickformat, secondary_y = False, showgrid = False, zeroline = False)
+        fig.update_xaxes(rangeslider_thickness=0.1, showgrid=False)
+        fig.update_yaxes(title_text=names[0], tickformat=tickformat, secondary_y=False, showgrid=False, zeroline=False)
         if len(names) > 1:
-            fig.update_yaxes(title_text = names[1], tickformat = tickformat, secondary_y = True, showgrid = False, zeroline = False)
+            fig.update_yaxes(title_text=names[1], tickformat=tickformat, secondary_y=True, showgrid=False, zeroline=False)
 
         return fig
 

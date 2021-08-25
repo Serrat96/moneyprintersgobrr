@@ -1,7 +1,5 @@
 import streamlit as st
 from datetime import timedelta
-import pandas as pd
-from millify import millify
 
 import sys, os
 
@@ -21,6 +19,7 @@ import utils.dashboard_tb as da
 import utils.mining_data_tb as md
 import utils.visualization_tb as vi
 import utils.folder_tb as fo
+import utils.linear_regression_tb as lr
 
 
 ##################################################### PREPARATION #####################################################
@@ -39,12 +38,13 @@ def get_data():
     
     # Transformed data
     m2_usa_percentage = m2_usa.pct_change(12).dropna()
+    m1_usa_percentage = m1_usa.pct_change(12).dropna()
     cpi_usa_percentage = cpi_usa.pct_change(12).dropna()
     pce_usa_percentage = pce_usa.pct_change(12).dropna()
 
-    return m1_usa, m2_usa, cpi_usa, pce_usa, m2_usa_percentage, cpi_usa_percentage, pce_usa_percentage
+    return m1_usa, m2_usa, cpi_usa, pce_usa, m1_usa_percentage, m2_usa_percentage, cpi_usa_percentage, pce_usa_percentage
 
-m1_usa, m2_usa, cpi_usa, pce_usa, m2_usa_percentage, cpi_usa_percentage, pce_usa_percentage = get_data()
+m1_usa, m2_usa, cpi_usa, pce_usa, m1_usa_percentage, m2_usa_percentage, cpi_usa_percentage, pce_usa_percentage = get_data()
 
 # Objects
 plotter = vi.st_plotter
@@ -53,11 +53,11 @@ processor = md.processor
 ##################################################### INTERFACE #####################################################
 
 def main():
-    menu = st.sidebar.selectbox('Country', ct.countries_list)
+    menu = 'US'#st.sidebar.selectbox('Country', ct.countries_list)
 
     # UNITED STATES, US
     if menu == 'US':
-        st.markdown('# Inflation metrics for USA :flag-us:')
+        st.title('Inflation metrics for USA :flag-us:')
         col1, col2 = st.columns(2)
 
         ################# PLOTS #################
@@ -74,7 +74,7 @@ def main():
             start_date_col1, end_date_col1 = da.double_ended_slider(to_plot, 'Monetary aggregates & CPI', key='1')
 
             st.plotly_chart(
-                plotter.line_plotter(to_plot, start_date = start_date_col1, end_date = end_date_col1,
+                plotter.line_plotter(to_plot, start_date=start_date_col1, end_date=end_date_col1,
                                     palette=ct.four_line_palette, title="Monetary aggregates & CPI"),
                 use_container_width=True)
             
@@ -150,6 +150,9 @@ def main():
         with col_2.expander(label='What is being calculated here?'):
             st.write('Basically, how long does it take for a variation of M2 to affect the CPI & PCE for the selected period in the side menu slidebar')
 
+        regression = lr.AutomaticLinearRegression('Prueba', [m1_usa], cpi_usa)
+        model_metrics_dict = regression.linear_regression(start_date_col1, end_date_col1)
+        st.write(model_metrics_dict)
 
 if __name__ == '__main__':
     main()
