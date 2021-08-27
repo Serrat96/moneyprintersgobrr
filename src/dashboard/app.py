@@ -19,7 +19,7 @@ import utils.dashboard_tb as da
 import utils.mining_data_tb as md
 import utils.visualization_tb as vi
 import utils.folder_tb as fo
-import utils.linear_regression_tb as lr
+import utils.models_tb as mo
 
 
 ##################################################### PREPARATION #####################################################
@@ -150,7 +150,7 @@ def main():
         with col_2.expander(label='What is being calculated here?'):
             st.write('Basically, how long does it take for a variation of M2 to affect the CPI & PCE for the selected period in the side menu slidebar')
 
-        regression = lr.AutomaticLinearRegression('Prueba', [m1_usa], cpi_usa)
+        regression = mo.AutomaticLinearRegression('Prueba', [m1_usa], cpi_usa)
         model_metrics_dict = regression.linear_regression(start_date_col1, end_date_col1)
         st.write(model_metrics_dict)
 
