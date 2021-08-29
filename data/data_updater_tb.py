@@ -241,7 +241,8 @@ def main():
 
     ine_codes = {
                     'IPC': ['IPC206446', '', '19000101', '21000801'],
-                    'IPC_PERCENTAGE': ['IPC206448', '', '19000101', '21000101']
+                    'IPC_ANNUAL_PERCENTAGE': ['IPC206448', '', '19000101', '21000101'],
+                    'IPC_MONTHLY_PERCENTAGE': ['IPC206449', '', '19000101', '21000101']
     }
 
     #extractor = BdeExtractor()
