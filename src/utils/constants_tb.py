@@ -5,7 +5,7 @@ countries_list = ["AF", "AX", "AL", "DZ", "AS", "AD", "AO", "AI", "AQ", "AG", "A
 "CL", "CN", "CX", "CC", "CO", "KM", "CG", "CD", "CK", "CR", "CI",
 "HR", "CU", "CW", "CY", "CZ", "DK", "DJ", "DM", "DO", "EC", "EG",
 "SV", "GQ", "ER", "EE", "ET", "FK", "FO", "FJ", "FI", "FR", "GF",
-"PF", "TF", "GA", "GM", "GE", "DE", "GH", "GI", "GR", "GL", "GD",
+"PF", "EUR", "TF", "GA", "GM", "GE", "DE", "GH", "GI", "GR", "GL", "GD",
 "GP", "GU", "GT", "GG", "GN", "GW", "GY", "HT", "HM", "VA", "HN",
 "HK", "HU", "IS", "IN", "ID", "IR", "IQ", "IE", "IM", "IL", "IT",
 "JM", "JP", "JE", "JO", "KZ", "KE", "KI", "KP", "KR", "KW", "KG",
@@ -25,6 +25,6 @@ countries_list = ["AF", "AX", "AL", "DZ", "AS", "AD", "AO", "AI", "AQ", "AG", "A
 
 four_line_palette = ['#48A9A6', '#66D7D1', '#F63366', '#F97699']
 
-three_line_palette = ['#66D7D1', '#F63366', '#F97699']
+three_line_palette = ['#66D7D1', '#F63366', '#F97699', '#48A9A6']
 
 two_line_palette = ['#F63366', '#66D7D1']

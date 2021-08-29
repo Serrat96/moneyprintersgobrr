@@ -156,10 +156,11 @@ class processor:
     ##### TO CHECK
 
 
-def read_data(path: str):
+def read_data_(path: str):
     try:
         return pd.read_parquet(path)
     except:
+        print(path)
         initial_path = r'/app/moneyprintersgobrr/'
         path_2 = path[3:]
         return pd.read_parquet(initial_path + path_2)
