@@ -3,7 +3,6 @@ from fredapi import Fred
 import sys, os
 from pandasdmx import Request
 import requests
-import json
 
 # Helpers
 abspath = os.path.abspath
@@ -37,6 +36,10 @@ def main():
                     pass
                 elif value == 'millions':
                     new_dataframe[new_dataframe.select_dtypes(include=['number']).columns] *= 1000000
+                elif value == 'pct':
+                    new_dataframe[new_dataframe.select_dtypes(include=['number']).columns] /= 100
+                elif value == 'thousands':
+                    new_dataframe[new_dataframe.select_dtypes(include=['number']).columns] *= 1000
                 if os.path.isfile('.' + sep + 'usa' + sep + key + sep + key + '.parquet'):
                     old_dataframe = pd.read_parquet('.' + sep + 'usa' + sep + key + sep + key + '.parquet')
                     if old_dataframe.equals(new_dataframe):
@@ -60,12 +63,18 @@ def main():
             print(len(created_dfs), 'Dataframes NO existentes y creados ', created_dfs)
 
 
-    fred_codes = {'M2NS': 'billions',
-                  'CPIAUCNS': '',
-                  'PCEPI': '',
-                  'M1NS': 'billions'}
-    #extractor = FredExtractor('a7eca89fdf2905baea21d67b942c9ef7')
-    #extractor.fred_data_updater(fred_codes)
+    fred_codes = {'M2NS': 'billions', #M2 no estacional
+                  'CPIAUCNS': '', #CPI no estacional
+                  'PCEPI': '', #PCE no estacional
+                  'M1NS': 'billions', #M1 no estacional
+                  'UNRATENSA': 'pct', #Porcentaje de personas desempleadas (respecto del total de la fuerza de trabajo)
+                  'LNU03000000': 'thousands', #Personas desempleadas
+                  'CUUR0000SA0R': '',#Poder adquisitivo
+                  'M1V': '', #Velocidad de la M1
+                  'M2V': ''} #Velocidad de la M2
+
+    extractor = FredExtractor('a7eca89fdf2905baea21d67b942c9ef7')
+    extractor.fred_data_updater(fred_codes)
 
 
     class EcbExtractor():
@@ -121,8 +130,8 @@ def main():
         'ICP': ['ICP.M.U2.N.000000.4.INX', '']
         }
 
-    #extractor = EcbExtractor()
-    #extractor.ecb_data_updater(ecb_codes)
+    extractor = EcbExtractor()
+    extractor.ecb_data_updater(ecb_codes)
 
     class BdeExtractor():
         def __init__(self):
@@ -194,12 +203,12 @@ def main():
             created_dfs = []
 
             for key, value in series_dict.items():
-                url = 'https://servicios.ine.es/wstempus/js/ES/DATOS_SERIE/' + list(value)[0] + '?date=' + list(value)[2] + ':' + list(value)[3]
-                new_dataframe = requests.get(url).json()['Data']
-                with open('./data.json', 'w') as f:
-                    json.dump(new_dataframe, f)
-                new_dataframe = pd.read_json('./data.json')
-                os.remove('./data.json')
+                url = 'https://servicios.ine.es/wstempus/js/ES/DATOS_SERIE/' + list(value)[0] + '?date=' + list(value)[2]\
+                      + ':' + list(value)[3]
+                data = requests.get(url).json()['Data']
+                new_dataframe = pd.DataFrame(data=data)
+                new_dataframe['FK_Periodo'] = new_dataframe['FK_Periodo'].astype(int)
+                new_dataframe['Anyo'] = new_dataframe['Anyo'].astype(int)
                 new_dataframe['FK_Periodo'] = new_dataframe['FK_Periodo'].astype(str) + ' ' + new_dataframe['Anyo'].astype(str)
                 new_dataframe = new_dataframe[['FK_Periodo', 'Valor']]
                 new_dataframe.set_index('FK_Periodo', inplace=True)
@@ -228,6 +237,29 @@ def main():
                     print('Creado nuevo parquet para ' + key)
                     created_dfs.append(key)
 
+            ipc = pd.read_parquet('.' + sep + 'spain' + sep + 'IPC' + sep +'IPC.parquet')
+            ipc.rename(columns={'Valor': 'IPC'}, inplace=True)
+            ipc_pct = pd.read_parquet('.' + sep + 'spain' + sep + 'IPC_MONTHLY_PERCENTAGE' + sep + 'IPC_MONTHLY_PERCENTAGE.parquet')
+            ipc_pct.rename(columns={'Valor': 'IPC_PCT'}, inplace=True)
+
+            concated = pd.concat([ipc, ipc_pct], axis=1).iloc[::-1]
+
+            concated = concated.iloc[1: , :]
+            list_pct = ipc_pct.values.tolist()
+            pct_change = []
+            for element in list_pct:
+                pct_change.append(float(element[0]))
+
+            pct_change = reversed(pct_change)
+            ipc_values = ipc.values.tolist()[-1]
+
+            for element in pct_change:
+                ipc_values.append(ipc_values[-1] - (element / 100) * ipc_values[-1])
+
+            new_ipc = pd.DataFrame(data=ipc_values[:-1], index=concated.index, columns=['Valor'])
+
+            new_ipc.to_parquet('.' + sep + 'spain' + sep + 'IPC' + sep + 'IPC' + '.parquet')
+
             print(len(not_updated_dfs), 'Dataframes existentes y NO actualizados ', not_updated_dfs)
             print(len(updated_dfs), 'Dataframes existentes y actualizados ', updated_dfs)
             print(len(created_dfs), 'Dataframes NO existentes y creados ', created_dfs)
@@ -240,16 +272,17 @@ def main():
         }
 
     ine_codes = {
-                    'IPC': ['IPC206446', '', '19000101', '21000801'],
+
                     'IPC_ANNUAL_PERCENTAGE': ['IPC206448', '', '19000101', '21000101'],
-                    'IPC_MONTHLY_PERCENTAGE': ['IPC206449', '', '19000101', '21000101']
+                    'IPC_MONTHLY_PERCENTAGE': ['IPC206449', '', '19000101', '21000101'],
+                    'IPC': ['IPC206446', '', '19000101', '21000801'],
     }
 
-    #extractor = BdeExtractor()
-    #extractor.bde_data_updater(bde_codes)
+    extractor = BdeExtractor()
+    extractor.bde_data_updater(bde_codes)
 
-    extractor = IneExtractor()
-    extractor.ine_data_updater(ine_codes)
+    #extractor = IneExtractor()
+    #extractor.ine_data_updater(ine_codes)
 
 
 

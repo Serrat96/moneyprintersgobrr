@@ -139,17 +139,25 @@ class processor:
 
             correlations_list.append(corr)
 
-        return max(correlations_list), correlations_list.index(max(correlations_list)) + 1
+        maxim = abs(max(correlations_list))
+
+        minim = abs(min(correlations_list))
+
+        if maxim > minim:
+            return max(correlations_list), correlations_list.index(max(correlations_list)) + 1
+        else:
+            return min(correlations_list), correlations_list.index(max(correlations_list)) + 1
+
 
     @staticmethod
-    def calculate_metrics(df, start_date, end_date, precision=2, currency_name='$', multiplier=1 ):
+    def calculate_metrics(df, start_date, end_date, precision=2, currency_name='$', symbol='', multiplier=1):
         start_date_str = str(start_date)
         end_date_str = str(end_date)
         df_filtered = processor.filter_between_dates(df, start_date_str, end_date_str)
 
         current_value = str(millify(df_filtered.iloc[-1] * multiplier, precision=precision)) + currency_name
         delta_value = str(millify((df_filtered.iloc[-1] * multiplier) - df_filtered.iloc[-13] * multiplier,
-                                  precision=precision)) + currency_name + ' regard anterior year'
+                                  precision=precision)) + currency_name + symbol + ' regard anterior year'
 
         return current_value, delta_value
 

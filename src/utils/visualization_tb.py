@@ -26,7 +26,7 @@ processor = md.processor
 #####
 class st_plotter:
     @staticmethod
-    def line_plotter(dict_, start_date, end_date, title = "", tickformat = "", palette = False):
+    def line_plotter(dict_, start_date, end_date, note='', x_annot=0, y_annot=0, x_legend=0, y_legend=1, title="", tickformat="", palette=False):
         dfs, legends, secondary_ys, names = dict_["dfs"], dict_["legends"], dict_["secondary_ys"], dict_["names"]
         # General settings
         start_date_str = str(start_date)
@@ -38,22 +38,38 @@ class st_plotter:
         fig = make_subplots()
         
         if any(secondary_ys):
-            fig = make_subplots(specs = [[{"secondary_y" : True}]])
+            fig = make_subplots(specs=[[{"secondary_y": True}]])
 
         # Iterate over
         for ind, df in enumerate(dfs):
             filtered_df = processor.filter_between_dates(df, start_date_str, end_date_str)
             fig.add_trace(go.Scatter(x=filtered_df.index, y=filtered_df.iloc[:, 0], name=legends[ind],
-                                     line=dict(color = palette_[ind])), secondary_y=secondary_ys[ind])
+                                     line=dict(color=palette_[ind])), secondary_y=secondary_ys[ind])
         
         # Layout
-        fig.update_layout(title = title, xaxis_rangeslider_visible = False, title_font_size = 30)
+        fig.update_layout(title=title, xaxis_rangeslider_visible=False, title_font_size=30,
+                          legend=dict(bgcolor='rgba(0,0,0,0)',
+                x=x_legend,
+                y=y_legend,
+                font=dict(
+                    size=10)))
 
         # Axes
         fig.update_xaxes(rangeslider_thickness=0.1, showgrid=False)
         fig.update_yaxes(title_text=names[0], tickformat=tickformat, secondary_y=False, showgrid=False, zeroline=False)
         if len(names) > 1:
             fig.update_yaxes(title_text=names[1], tickformat=tickformat, secondary_y=True, showgrid=False, zeroline=False)
+
+        if note != '':
+            fig.add_annotation(
+                showarrow=False,
+                text=note,
+                font=dict(size=10),
+                xref='x domain',
+                x=x_annot,
+                yref='y domain',
+                y=y_annot
+            )
 
         return fig
 

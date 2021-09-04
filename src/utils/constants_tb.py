@@ -25,6 +25,6 @@ countries_list = ["AF", "AX", "AL", "DZ", "AS", "AD", "AO", "AI", "AQ", "AG", "A
 
 four_line_palette = ['#48A9A6', '#66D7D1', '#F63366', '#F97699']
 
-three_line_palette = ['#66D7D1', '#F63366', '#F97699', '#48A9A6']
+three_line_palette = ['#66D7D1', '#F63366', '#F97699']
 
 two_line_palette = ['#F63366', '#66D7D1']
