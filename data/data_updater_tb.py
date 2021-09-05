@@ -67,11 +67,15 @@ def main():
                   'CPIAUCNS': '', #CPI no estacional
                   'PCEPI': '', #PCE no estacional
                   'M1NS': 'billions', #M1 no estacional
-                  'UNRATENSA': 'pct', #Porcentaje de personas desempleadas (respecto del total de la fuerza de trabajo)
-                  'LNU03000000': 'thousands', #Personas desempleadas
-                  'CUUR0000SA0R': '',#Poder adquisitivo
-                  'M1V': '', #Velocidad de la M1
-                  'M2V': ''} #Velocidad de la M2
+                  'UNRATENSA': 'pct', #Porcentaje de personas desempleadas (respecto del total de la fuerza de trabajo) no estacional
+                  'LNU03000000': 'thousands', #Personas desempleadas no estacional
+                  'CUUR0000SA0R': '',#Poder adquisitivo no estacional
+                  'M1V': '', #Velocidad de la M1 no estacional quarteryl
+                  'M2V': '', #Velocidad de la M2 no estacional quarterly
+                  'NA000334Q': 'millions', #GDP no estacional quarterly
+                  'IPB50001N': '', #Indice produccion industrial no estacional 2017=100
+                  'USSTHPI': '', #Indice precio vivienda USA 1980Q1 = 100
+                  }
 
     extractor = FredExtractor('a7eca89fdf2905baea21d67b942c9ef7')
     extractor.fred_data_updater(fred_codes)
