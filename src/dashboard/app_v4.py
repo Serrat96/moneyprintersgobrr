@@ -42,9 +42,14 @@ def main():
 
     st.title(f"Inflation metrics for {menu} :flag-{menu.lower()}:")
 
-    expanders = st.columns(2)
-    expanders[0].expander("Titel1")
-    expanders[1].expander("Titel1")
+
+    col1, col2 = st.columns(2)
+    with col1.expander("What is showed in this column?"):
+        st.write("This project is made to compare the CPI index with different metrics which are related to it."
+                 " In this column are showed the nominal value metrics")
+
+    with col2.expander("What is showed in this column?"):
+        st.write("In this column are showed the annual change metrics with the correlation between them and the CPI")
 
 
     # Load country settings
