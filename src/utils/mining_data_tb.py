@@ -12,6 +12,8 @@ from sklearn.model_selection import train_test_split
 
 import sys, os
 
+from sqlalchemy import create_engine
+
 # Helpers
 abspath = os.path.abspath
 dirname = os.path.dirname
@@ -22,8 +24,8 @@ import utils.folder_tb as fo
 
 # Database connection
 database_path = fo.path_to_folder(2, "data") + "moneyprintersgobrr.db"
-connection = sqlite3.connect(database_path)
-
+#connection = sqlite3.connect(database_path)
+engine = create_engine("mariadb+mariadbconnector://administrador:Xit7WdQ3YniY6YttHzBu@moneyprintersgobrr.c8r7otayptqb.eu-west-3.rds.amazonaws.com:3306/moneyprintersgobrr")
 
 
 ##################################################### FUNCTIONS #####################################################
