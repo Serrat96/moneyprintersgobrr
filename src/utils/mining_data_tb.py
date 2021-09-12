@@ -1,10 +1,10 @@
 import numpy as np
 import pandas as pd
+<<<<<<< HEAD
 import sqlite3
+=======
+>>>>>>> f5cccfe103b27f5074a0c22eba1244353c8de223
 import json
-from sqlalchemy import create_engine
-#import mariadb
-
 
 from datetime import *
 from fredapi import Fred
@@ -30,9 +30,21 @@ sys.path.append(current_folder)
 import utils.folder_tb as fo
 
 # Database connection
+<<<<<<< HEAD
 database_path = fo.path_to_folder(2, "data") + "moneyprintersgobrr.db"
 connection = sqlite3.connect(database_path, check_same_thread = False)
 #engine = create_engine("mariadb+mariadbconnector://administrador:Xit7WdQ3YniY6YttHzBu@moneyprintersgobrr.c8r7otayptqb.eu-west-3.rds.amazonaws.com:3306/moneyprintersgobrr")    
+=======
+
+# database_path = fo.path_to_folder(2, "data") + "moneyprintersgobrr.db"
+# connection = sqlite3.connect(database_path)
+engine = create_engine("mariadb+mariadbconnector://administrador:Xit7WdQ3YniY6YttHzBu@moneyprintersgobrr.c8r7otayptqb.eu-west-3.rds.amazonaws.com:3306/moneyprintersgobrr")    
+
+
+database_path = fo.path_to_folder(2, "data") + "moneyprintersgobrr.db"
+#connection = sqlite3.connect(database_path)
+engine = create_engine("mariadb+mariadbconnector://administrador:Xit7WdQ3YniY6YttHzBu@moneyprintersgobrr.c8r7otayptqb.eu-west-3.rds.amazonaws.com:3306/moneyprintersgobrr")
+>>>>>>> f5cccfe103b27f5074a0c22eba1244353c8de223
 
 
 
