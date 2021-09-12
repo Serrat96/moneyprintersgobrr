@@ -58,6 +58,7 @@ def main():
     # List of lists
     # Example: CPI vs M1 & M2 -> [[m1, m2]]
     independent_vars = country_data["independent_vars"]
+    names = country_data["names"]
     tables = country_data["tables"]
     # Temporal lag
     temp_change = country_data["temp_change"]
@@ -73,8 +74,7 @@ def main():
     titles = country_data["titles"]
     titles_change = [title + " annual change" for title in titles]
     key = 0
-
-
+    num = 0
     for ind1, vars_ in enumerate(independent_vars):
         ############ Loading data ############
         target_data = [md.get_data(target_db_name, country)]
@@ -86,6 +86,8 @@ def main():
         l_dfs = target_data + independent_data  # All variables list
         r_dfs = target_data_percentage + independent_data_percentage
         legends = [target.upper()] + [var.upper() for var in vars_]
+        name = [target.upper()] + [name for name in names[num]]
+        num+=1
         slider_title = f"{target.upper()} vs " + "".join([f"{var.upper()}, " for var in vars_])
         # title1 = f"{target.upper()} vs " + "".join([f"{var.upper()}, " for var in vars_])
         # title2 = f"{target.upper()} vs " + "".join([f"{var.upper()}, " for var in vars_]) + " annual change"    
@@ -97,12 +99,12 @@ def main():
                     "dfs" : l_dfs,
                     "legends" : legends,
                     "secondary_ys" : [False] + secondary_ys[ind1],
-                    "names" : legends},
+                    "names" : name},
             "right_plot" : {
                     "dfs" : r_dfs,
                     "legends" : legends,
                     "secondary_ys" : [False] + secondary_ys[ind1],
-                    "names" : legends},
+                    "names" : name},
             # Plot specs
             "specifics" : {
                 # General specs
