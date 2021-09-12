@@ -1,5 +1,7 @@
 import numpy as np
 import pandas as pd
+import sqlite3
+import json
 
 from datetime import *
 from fredapi import Fred
@@ -14,6 +16,14 @@ import sys, os
 abspath = os.path.abspath
 dirname = os.path.dirname
 sep = os.sep
+
+# Self-made packages
+import utils.folder_tb as fo
+
+# Database connection
+database_path = fo.path_to_folder(2, "data") + "moneyprintersgobrr.db"
+connection = sqlite3.connect(database_path)
+
 
 
 ##################################################### FUNCTIONS #####################################################
@@ -185,9 +195,7 @@ class processor:
 
         return current_value, delta_value
 
-    ##### TO CHECK
-
-
+##### TO CHECK
 def read_data_(path: str):
     try:
         return pd.read_parquet(path)
@@ -196,3 +204,53 @@ def read_data_(path: str):
         initial_path = r'/app/moneyprintersgobrr/'
         path_2 = path[3:]
         return pd.read_parquet(initial_path + path_2)
+
+# To query database
+# def get_data(x, country):
+#     query = f'''
+#     SELECT date, {x}
+#     FROM {country}
+#     '''
+
+#     result = pd.read_sql_query(query, connection).dropna()
+#     result.date = pd.to_datetime(result.date)
+#     return result.set_index("date")
+
+def get_data(x, country):
+    query = f'''
+    SELECT date, {x}
+    FROM {country}
+    '''
+
+    result = pd.read_sql_query(query, engine).dropna()
+    result.date = pd.to_datetime(result.date)
+    return result.set_index("date")
+
+
+##################################################### SUPPORT #####################################################
+def read_json(fullpath):
+    '''
+    This function reads the json an returns it in a format we can work with it
+
+    args : fullpath -> path to the json to be read
+    '''
+    with open(fullpath, "r") as json_file:
+        read_json_ = json.load(json_file)
+
+    return read_json_
+
+#########
+def read_json_to_dict(json_fullpath):
+    """
+    Read a json and return a object created from it.
+    Args:
+        json_fullpath: json fullpath
+
+    Returns: json object.
+    """
+    try:
+        with open(json_fullpath, 'r+') as outfile:
+            read_json = json.load(outfile)
+        return read_json
+    except Exception as error:
+        raise ValueError(error)
