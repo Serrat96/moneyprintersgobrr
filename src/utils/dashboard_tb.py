@@ -84,21 +84,22 @@ class front:
     @staticmethod
     def main_metrics(data, start_date, end_date, cols, quarterly = True, multiplier = 100, currency_name = ''): 
         absolute_data, percentage_data = data["left_plot"]["dfs"], data["right_plot"]["dfs"]
-        name = "GDP"
+        names = data["left_plot"]["legends"]
+        
 
-        for ind in range(len(absolute_data[1:])):
+        for ind in range(len(absolute_data)):
             with cols[0]:
-                independent_absolute_current, independent_absolute_delta = processor.calculate_metrics(absolute_data[0],
+                independent_absolute_current, independent_absolute_delta = processor.calculate_metrics(absolute_data[ind],
                 start_date,
                 end_date,
                 quarterly = quarterly,
                 currency_name = currency_name)
 
                 # Plot
-                st.metric('GDP value at ' + str(end_date), value = independent_absolute_current, delta = independent_absolute_delta)
+                st.metric(f'{names[ind]} value at ' + str(end_date), value = independent_absolute_current, delta = independent_absolute_delta)
 
             with cols[1]:
-                independent_percentage_current, independent_percentage_delta = processor.calculate_metrics(percentage_data[0],
+                independent_percentage_current, independent_percentage_delta = processor.calculate_metrics(percentage_data[ind],
                             start_date,
                             end_date,
                             multiplier = multiplier,
@@ -107,15 +108,15 @@ class front:
                             quarterly = False,
                             precision = 4)
                 # Data extraction
-                st.metric(f'{name} change at ' + str(end_date), value = str(round(float(independent_percentage_current), 2)) + '%')
+                st.metric(f'{names[ind]} change at ' + str(end_date), value = str(round(float(independent_percentage_current), 2)) + '%')
 
             with cols[2]:
-                value, delay = processor.get_best_quarterly_correlation(absolute_data[ind + 1], absolute_data[0], start_date, end_date)
+                value, delay = processor.get_best_quarterly_correlation(absolute_data[ind], absolute_data[ind], start_date, end_date)
 
-                value_past_year, delay_past_year = processor.get_best_quarterly_correlation(absolute_data[ind + 1], absolute_data[0], start_date, end_date - timedelta(days=365))
+                value_past_year, delay_past_year = processor.get_best_quarterly_correlation(absolute_data[ind], absolute_data[ind], start_date, end_date - timedelta(days=365))
 
                 # Plot
-                st.metric(f'{name} affects CPI within:', value = str(delay) + ' months',
+                st.metric(f'{names[ind]} affects CPI within:', value = str(delay) + ' months',
                             delta = str(delay - delay_past_year) + ' months regard anterior year')
 
             with cols[3]:

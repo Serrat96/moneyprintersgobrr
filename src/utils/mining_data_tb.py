@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import mariadb
+import sqlite3
 import json
 from sqlalchemy import create_engine
 #import mariadb
@@ -22,20 +22,18 @@ abspath = os.path.abspath
 dirname = os.path.dirname
 sep = os.sep
 
+# Path modification
+current_folder = dirname(abspath(__file__))
+sys.path.append(current_folder)
+
 # Self-made packages
 import utils.folder_tb as fo
 
 # Database connection
-<<<<<<< HEAD
-# database_path = fo.path_to_folder(2, "data") + "moneyprintersgobrr.db"
-# connection = sqlite3.connect(database_path)
-engine = create_engine("mariadb+mariadbconnector://administrador:Xit7WdQ3YniY6YttHzBu@moneyprintersgobrr.c8r7otayptqb.eu-west-3.rds.amazonaws.com:3306/moneyprintersgobrr")    
-
-=======
 database_path = fo.path_to_folder(2, "data") + "moneyprintersgobrr.db"
-#connection = sqlite3.connect(database_path)
-engine = create_engine("mariadb+mariadbconnector://administrador:Xit7WdQ3YniY6YttHzBu@moneyprintersgobrr.c8r7otayptqb.eu-west-3.rds.amazonaws.com:3306/moneyprintersgobrr")
->>>>>>> 3b7d95946a6bf6bece65f0e52773ccf0fb7e3ce1
+connection = sqlite3.connect(database_path, check_same_thread = False)
+#engine = create_engine("mariadb+mariadbconnector://administrador:Xit7WdQ3YniY6YttHzBu@moneyprintersgobrr.c8r7otayptqb.eu-west-3.rds.amazonaws.com:3306/moneyprintersgobrr")    
+
 
 
 ##################################################### FUNCTIONS #####################################################
@@ -234,7 +232,7 @@ def get_data(x, country):
     FROM {country}
     '''
 
-    result = pd.read_sql_query(query, engine).dropna()
+    result = pd.read_sql_query(query, connection).dropna()
     result.date = pd.to_datetime(result.date)
     return result.set_index("date")
 
@@ -265,4 +263,5 @@ def read_json_to_dict(json_fullpath):
             read_json = json.load(outfile)
         return read_json
     except Exception as error:
-        raise ValueError(error)
+        raise ValueError(os.listdir())
+        #raise ValueError(error)
