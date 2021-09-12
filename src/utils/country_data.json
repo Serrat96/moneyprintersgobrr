@@ -8,7 +8,7 @@
         "temp_change" : [4, 12, 12, 4, 12],
         "note" : ["CPI: Consumer Price Index 1982-1984=100",
             "CPI: Consumer Price Index 1982-1984=100<br>M1: Monetary aggregate 1<br>M2: Monetary aggregate 2",
-            "CPI: Consumer Price Index 1982-1984=100<br>IPI: House Price Index 1980:Q1=100",
+            "CPI: Consumer Price Index 1982-1984=100<br>HPI: House Price Index 1980:Q1=100",
             "CPI: Consumer Price Index 1982-1984=100<br>M1V: Monetary aggregate 1 velocity<br>M2V: Monetary aggregate 2 velocity",
             "CPI: Consumer Price Index 1982-1984=100<br>IPI: Industrial Price Index 2017=100"],
         "x_annot" : [1, 1, 1, 1, 1],

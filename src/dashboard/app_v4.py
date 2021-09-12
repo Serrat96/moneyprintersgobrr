@@ -20,12 +20,9 @@ import utils.dashboard_tb as da
 import utils.mining_data_tb as md
 import utils.visualization_tb as vi
 
-# for i in sys.path: print(i)
-# exit()
-
 ##################################################### PREPARATION #####################################################
 st.set_page_config(page_title='moneyprintersgobrr', page_icon='dollar', layout='wide',
-                   initial_sidebar_state='collapsed')
+                   initial_sidebar_state='expanded')
 
 # Objects
 plotter = vi.st_plotter
