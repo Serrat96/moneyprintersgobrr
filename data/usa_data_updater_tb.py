@@ -22,12 +22,12 @@ def main():
 
         def data_updater(self, fred_series_dict: dict):
             fred = Fred(self.api_key)
-            engine = create_engine("mysql+pymysql://administrador:Xit7WdQ3YniY6YttHzBu@moneyprintersgobrr.c8r7otayptqb.eu-west-3.rds.amazonaws.com/USA")
+            engine = create_engine("mysql+pymysql://administrador:Xit7WdQ3YniY6YttHzBu@moneyprintersgobrr.c8r7otayptqb.eu-west-3.rds.amazonaws.com/moneyprintersgobrr")
+            db_df = pd.DataFrame()
             for key, value in fred_series_dict.items():
                 series = fred.get_series(key)
                 new_df = pd.DataFrame(series, columns=['Value'])
                 new_df.rename(columns={'Value': key}, inplace=True)
-                new_df.index = new_df.index.date
                 if value == '':
                     pass
                 elif value == 'pct':
@@ -39,7 +39,11 @@ def main():
                 elif value == 'billions':
                     new_df[new_df.select_dtypes(include=['number']).columns] *= 1000000000
 
-                new_df.to_sql(key, con=engine, if_exists='replace')
+                db_df = pd.concat([db_df, new_df], axis=1)
+
+            db_df.reset_index(inplace=True)
+            db_df = db_df.rename({"index": "date"}, axis=1)
+            db_df.to_sql('USA', con=engine, if_exists='replace', index=False)
 
     fred_ns_series_dict = {'M2NS': 'billions',  # M2 no estacional
                         'CPIAUCNS': '',  # CPI no estacional
@@ -50,7 +54,7 @@ def main():
                         'CUUR0000SA0R': '',  # Poder adquisitivo no estacional
                         'M1V': '',  # Velocidad de la M1 no estacional quarterly
                         'M2V': '',  # Velocidad de la M2 no estacional quarterly
-                        'NA000334Q': 'millions',  # GDP no estacional quarterly
+                        'GDP': 'billions',  # GDP estacional quarterly
                         'IPB50001N': '',  # Indice produccion industrial no estacional 2017=100
                         'USSTHPI': '',  # Indice precio vivienda USA 1980Q1 = 100
                         }

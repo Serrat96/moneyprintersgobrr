@@ -1,3 +1,4 @@
+# Lanzar streamlit desde  C:\Users\serra\REPOSITORIOS\moneyprintersgobrr\src\dashboard
 import streamlit as st
 import time
 
@@ -47,7 +48,7 @@ def main():
 
 
     # Load country settings
-    json_path = '..' + sep + 'utils' + sep +"country_data.json"
+    json_path = '..' + sep + 'utils' + sep + "country_data.json"
     country_data = md.read_json_to_dict(json_path)[menu]
     ####### DATA EXTRACTION AND PROCESSING #######
     country = country_data["country"]
