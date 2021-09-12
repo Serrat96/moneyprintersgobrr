@@ -1,7 +1,10 @@
 import streamlit as st
+<<<<<<< HEAD
 from datetime import timedelta
 import mariadb
 import pandas as pd
+=======
+>>>>>>> 3b7d95946a6bf6bece65f0e52773ccf0fb7e3ce1
 
 import sys, os
 

@@ -40,21 +40,21 @@ def main():
                     new_dataframe[new_dataframe.select_dtypes(include=['number']).columns] /= 100
                 elif value == 'thousands':
                     new_dataframe[new_dataframe.select_dtypes(include=['number']).columns] *= 1000
-                if os.path.isfile('.' + sep + 'usa' + sep + key + sep + key + '.parquet'):
-                    old_dataframe = pd.read_parquet('.' + sep + 'usa' + sep + key + sep + key + '.parquet')
+                if os.path.isfile('.' + sep + 'usa' + sep + key + '.parquet'):
+                    old_dataframe = pd.read_parquet('.' + sep + 'usa' + sep + key + '.parquet')
                     if old_dataframe.equals(new_dataframe):
                         print(key + ' ya existe y es igual, NO se ha actualizado')
                         not_updated_dfs.append(key)
                     else:
-                        new_dataframe.to_parquet('.' + sep + 'usa' + sep + key + sep + key + '.parquet')
+                        new_dataframe.to_parquet('.' + sep + 'usa' + sep + key + '.parquet')
                         print(key + ' actualizado')
                         updated_dfs.append(key)
                 else:
                     print(key + ' es nuevo')
-                    if not os.path.isdir('.' + sep + 'usa' + sep + key):
-                        os.makedirs('.' + sep + 'usa' + sep + key)
+                    if not os.path.isdir('.' + sep + 'usa'):
+                        os.makedirs('.' + sep + 'usa')
                         print('Creado directorio para ' + key)
-                    new_dataframe.to_parquet('.' + sep + 'usa' + sep + key + sep + key + '.parquet')
+                    new_dataframe.to_parquet('.' + sep + 'usa' + sep + key + '.parquet')
                     print('Creado nuevo parquet para ' + key)
                     created_dfs.append(key)
 
@@ -105,21 +105,21 @@ def main():
                     pass
                 elif list(value)[1] == 'millions':
                     new_dataframe[new_dataframe.select_dtypes(include=['number']).columns] *= 1000000
-                if os.path.isfile('.' + sep + 'euro' + sep + key + sep + key + '.parquet'):
-                    old_dataframe = pd.read_parquet('.' + sep + 'euro' + sep + key + sep + key + '.parquet')
+                if os.path.isfile('.' + sep + 'euro' + sep + key + '.parquet'):
+                    old_dataframe = pd.read_parquet('.' + sep + 'euro' + sep + key + '.parquet')
                     if old_dataframe.equals(new_dataframe):
                         print(key + ' ya existe y es igual, NO se ha actualizado')
                         not_updated_dfs.append(key)
                     else:
-                        new_dataframe.to_parquet('.' + sep + 'euro' + sep + key + sep + key + '.parquet')
+                        new_dataframe.to_parquet('.' + sep + 'euro' + sep + key + '.parquet')
                         print(key + ' actualizado')
                         updated_dfs.append(key)
                 else:
                     print(key + ' es nuevo')
-                    if not os.path.isdir('.' + sep + 'euro' + sep + key):
-                        os.makedirs('.' + sep + 'euro' + sep + key)
+                    if not os.path.isdir('.' + sep + 'euro'):
+                        os.makedirs('.' + sep + 'euro')
                         print('Creado directorio para ' + key)
-                    new_dataframe.to_parquet('.' + sep + 'euro' + sep + key + sep + key + '.parquet')
+                    new_dataframe.to_parquet('.' + sep + 'euro' + sep + key + '.parquet')
                     print('Creado nuevo parquet para ' + key)
                     created_dfs.append(key)
 
@@ -173,21 +173,21 @@ def main():
                     pass
                 elif list(value)[1] == 'millions':
                     new_dataframe[new_dataframe.select_dtypes(include=['number']).columns] *= 1000000
-                if os.path.isfile('.' + sep + 'spain' + sep + key + sep + key + '.parquet'):
-                    old_dataframe = pd.read_parquet('.' + sep + 'spain' + sep + key + sep + key + '.parquet')
+                if os.path.isfile('.' + sep + 'spain' + sep + key + '.parquet'):
+                    old_dataframe = pd.read_parquet('.' + sep + 'spain' + sep + key + '.parquet')
                     if old_dataframe.equals(new_dataframe):
                         print(key + ' ya existe y es igual, NO se ha actualizado')
                         not_updated_dfs.append(key)
                     else:
-                        new_dataframe.to_parquet('.' + sep + 'spain' + sep + key + sep + key + '.parquet')
+                        new_dataframe.to_parquet('.' + sep + 'spain' + sep + key + '.parquet')
                         print(key + ' actualizado')
                         updated_dfs.append(key)
                 else:
                     print(key + ' es nuevo')
-                    if not os.path.isdir('.' + sep + 'spain' + sep + key):
-                        os.makedirs('.' + sep + 'spain' + sep + key)
+                    if not os.path.isdir('.' + sep + 'spain'):
+                        os.makedirs('.' + sep + 'spain')
                         print('Creado directorio para ' + key)
-                    new_dataframe.to_parquet('.' + sep + 'spain' + sep + key + sep + key + '.parquet')
+                    new_dataframe.to_parquet('.' + sep + 'spain' + sep + key + '.parquet')
                     print('Creado nuevo parquet para ' + key)
                     created_dfs.append(key)
 
@@ -223,13 +223,13 @@ def main():
                     pass
                 elif list(value)[1] == 'millions':
                     new_dataframe[new_dataframe.select_dtypes(include=['number']).columns] *= 1000000
-                if os.path.isfile('.' + sep + 'spain' + sep + key + sep + key + '.parquet'):
-                    old_dataframe = pd.read_parquet('.' + sep + 'spain' + sep + key + sep + key + '.parquet')
+                if os.path.isfile('.' + sep + 'spain' + sep + key + '.parquet'):
+                    old_dataframe = pd.read_parquet('.' + sep + 'spain' + sep + key + '.parquet')
                     if old_dataframe.equals(new_dataframe):
                         print(key + ' ya existe y es igual, NO se ha actualizado')
                         not_updated_dfs.append(key)
                     else:
-                        new_dataframe.to_parquet('.' + sep + 'spain' + sep + key + sep + key + '.parquet')
+                        new_dataframe.to_parquet('.' + sep + 'spain' + sep + key + '.parquet')
                         print(key + ' actualizado')
                         updated_dfs.append(key)
                 else:
@@ -237,7 +237,7 @@ def main():
                     if not os.path.isdir('.' + sep + 'spain' + sep + key):
                         os.makedirs('.' + sep + 'spain' + sep + key)
                         print('Creado directorio para ' + key)
-                    new_dataframe.to_parquet('.' + sep + 'spain' + sep + key + sep + key + '.parquet')
+                    new_dataframe.to_parquet('.' + sep + 'spain' + sep + key + '.parquet')
                     print('Creado nuevo parquet para ' + key)
                     created_dfs.append(key)
 
