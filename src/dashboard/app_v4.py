@@ -36,9 +36,7 @@ front = da.front
 
 
 def main():
-    print(os.getcwd())
-    time.sleep(10)
-    exit()
+
     menu = st.sidebar.selectbox('Country', ct.countries_list, index = ct.countries_list.index("US"))
 
     st.title(f"Inflation metrics for {menu} :flag-{menu.lower()}:")
@@ -47,9 +45,9 @@ def main():
     expanders[0].expander("Titel1")
     expanders[1].expander("Titel1")
 
+
     # Load country settings
-    #json_path = "src" + sep + "utils" + sep + "country_data.json"
-    json_path = 'country_data.json'
+    json_path = '..' + sep + 'utils' + sep +"country_data.json"
     country_data = md.read_json_to_dict(json_path)[menu]
     ####### DATA EXTRACTION AND PROCESSING #######
     country = country_data["country"]
