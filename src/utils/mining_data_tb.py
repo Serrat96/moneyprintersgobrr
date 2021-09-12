@@ -239,7 +239,7 @@ def get_data(x, country):
 
 
 ##################################################### SUPPORT #####################################################
-def read_json__(fullpath):
+def read_json(fullpath):
     '''
     This function reads the json an returns it in a format we can work with it
 
@@ -264,4 +264,5 @@ def read_json_to_dict(json_fullpath):
             read_json = json.load(outfile)
         return read_json
     except Exception as error:
-        raise ValueError(error)
+        raise ValueError(os.listdir())
+        #raise ValueError(error)
