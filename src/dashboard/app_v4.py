@@ -1,7 +1,4 @@
 import streamlit as st
-from datetime import timedelta
-import sqlite3
-import pandas as pd
 
 import sys, os
 
@@ -41,7 +38,7 @@ def main():
         st.title(f"Inflation metrics for {menu} :flag-{menu.lower()}:")
 
         # Generic information and parameters
-        country = "usa"
+        country = "USA"
         target = "cpi"
         independent_vars = [["gdp"], ["m1", "m2"], ["ipi"], ["m1v", "m2v"]]
         tables = [["NA000334Q"], ["M1NS", "M2NS"], ["USSTHPI"], ["M1V", "M2V"]]
