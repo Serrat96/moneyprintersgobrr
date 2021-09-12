@@ -43,6 +43,7 @@ def double_ended_slider(df_dict, slider_title: str, key: str):
     return start_date, end_date
 
 class front:
+
     @staticmethod
     def main_plots(plots_specs, start_date, end_date, cols, key):
         ######### DATA PREP #########
@@ -56,11 +57,11 @@ class front:
                                         start_date,
                                         end_date,
                                         palette = specifics["palette"],
-                                        note = specifics["note"][0],
-                                        x_annot = specifics["x_annot"][0],
-                                        y_annot = specifics["y_annot"][0],
-                                        x_legend = specifics["x_legend"][0],
-                                        y_legend = specifics["y_legend"][0],
+                                        note = specifics["note"][key],
+                                        x_annot = specifics["x_annot"][key],
+                                        y_annot = specifics["y_annot"][key],
+                                        x_legend = specifics["x_legend"][key],
+                                        y_legend = specifics["y_legend"][key],
                                         title = specifics["title"][0],
                                         tickformat = specifics["tickformat"][0]),
                     use_container_width = True)
@@ -72,11 +73,11 @@ class front:
                                         start_date,
                                         end_date,
                                         palette = specifics["palette"],
-                                        note = specifics["note"][1],
-                                        x_annot = specifics["x_annot"][1],
-                                        y_annot = specifics["y_annot"][1],
-                                        x_legend = specifics["x_legend"][1],
-                                        y_legend = specifics["y_legend"][1],
+                                        note = specifics["note"][key],
+                                        x_annot = specifics["x_annot"][key],
+                                        y_annot = specifics["y_annot"][key],
+                                        x_legend = specifics["x_legend"][key],
+                                        y_legend = specifics["y_legend"][key],
                                         title = specifics["title"][1],
                                         tickformat = specifics["tickformat"][1]),
                     use_container_width = True)
