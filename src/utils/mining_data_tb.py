@@ -21,8 +21,6 @@ sep = os.sep
 
 # Path modification
 current_folder = dirname(abspath(__file__))
-for i in range(2):
-    current_folder = dirname(abspath(current_folder))
 sys.path.append(current_folder)
 
 # Self-made packages
@@ -30,7 +28,7 @@ import utils.folder_tb as fo
 
 # Database connection
 
-
+database_path = fo.path_to_folder(2, "data") + "moneyprintersgobrr.db"
 #connection = sqlite3.connect(database_path)
 engine = create_engine("mariadb+mariadbconnector://administrador:Xit7WdQ3YniY6YttHzBu@moneyprintersgobrr.c8r7otayptqb.eu-west-3.rds.amazonaws.com:3306/moneyprintersgobrr")
 
