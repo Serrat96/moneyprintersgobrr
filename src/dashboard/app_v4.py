@@ -1,6 +1,6 @@
 import streamlit as st
 from datetime import timedelta
-import sqlite3
+import mariadb
 import pandas as pd
 
 import sys, os
@@ -21,7 +21,6 @@ import utils.dashboard_tb as da
 import utils.mining_data_tb as md
 import utils.visualization_tb as vi
 import utils.folder_tb as fo
-import utils.models_tb as mo
 
 ##################################################### PREPARATION #####################################################
 st.set_page_config(page_title='moneyprintersgobrr', page_icon='dollar', layout='wide',
@@ -41,7 +40,7 @@ def main():
         st.title(f"Inflation metrics for {menu} :flag-{menu.lower()}:")
 
         # Generic information and parameters
-        country = "usa"
+        country = "USA"
         target = "cpi"
         independent_vars = [["gdp"], ["m1", "m2"], ["ipi"], ["m1v", "m2v"]]
         tables = [["NA000334Q"], ["M1NS", "M2NS"], ["USSTHPI"], ["M1V", "M2V"]]

@@ -1,7 +1,10 @@
 import numpy as np
 import pandas as pd
-import sqlite3
+import mariadb
 import json
+from sqlalchemy import create_engine
+#import mariadb
+
 
 from datetime import *
 from fredapi import Fred
@@ -21,8 +24,9 @@ sep = os.sep
 import utils.folder_tb as fo
 
 # Database connection
-database_path = fo.path_to_folder(2, "data") + "moneyprintersgobrr.db"
-connection = sqlite3.connect(database_path)
+# database_path = fo.path_to_folder(2, "data") + "moneyprintersgobrr.db"
+# connection = sqlite3.connect(database_path)
+engine = create_engine("mariadb+mariadbconnector://administrador:Xit7WdQ3YniY6YttHzBu@moneyprintersgobrr.c8r7otayptqb.eu-west-3.rds.amazonaws.com:3306/moneyprintersgobrr")    
 
 
 
