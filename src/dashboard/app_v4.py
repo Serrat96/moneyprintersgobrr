@@ -1,10 +1,5 @@
 import streamlit as st
-<<<<<<< HEAD
-from datetime import timedelta
-import sqlite3
-import pandas as pd
-=======
->>>>>>> f5cccfe103b27f5074a0c22eba1244353c8de223
+
 
 import sys, os
 
@@ -23,7 +18,6 @@ import utils.constants_tb as ct
 import utils.dashboard_tb as da
 import utils.mining_data_tb as md
 import utils.visualization_tb as vi
-import utils.folder_tb as fo
 
 # for i in sys.path: print(i)
 # exit()
