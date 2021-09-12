@@ -1,5 +1,5 @@
 import streamlit as st
-
+import time
 
 import sys, os
 
@@ -34,7 +34,11 @@ front = da.front
 
 ##################################################### INTERFACE #####################################################
 
+
 def main():
+    print(os.getcwd())
+    time.sleep(10)
+    exit()
     menu = st.sidebar.selectbox('Country', ct.countries_list, index = ct.countries_list.index("US"))
 
     st.title(f"Inflation metrics for {menu} :flag-{menu.lower()}:")
