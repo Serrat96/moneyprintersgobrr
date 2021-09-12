@@ -1,10 +1,6 @@
 import numpy as np
 import pandas as pd
-import mariadb
 import json
-from sqlalchemy import create_engine
-#import mariadb
-
 
 from datetime import *
 from fredapi import Fred
