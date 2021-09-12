@@ -26,16 +26,16 @@ sep = os.sep
 import utils.folder_tb as fo
 
 # Database connection
-<<<<<<< HEAD
+
 # database_path = fo.path_to_folder(2, "data") + "moneyprintersgobrr.db"
 # connection = sqlite3.connect(database_path)
 engine = create_engine("mariadb+mariadbconnector://administrador:Xit7WdQ3YniY6YttHzBu@moneyprintersgobrr.c8r7otayptqb.eu-west-3.rds.amazonaws.com:3306/moneyprintersgobrr")    
 
-=======
+
 database_path = fo.path_to_folder(2, "data") + "moneyprintersgobrr.db"
 #connection = sqlite3.connect(database_path)
 engine = create_engine("mariadb+mariadbconnector://administrador:Xit7WdQ3YniY6YttHzBu@moneyprintersgobrr.c8r7otayptqb.eu-west-3.rds.amazonaws.com:3306/moneyprintersgobrr")
->>>>>>> 3b7d95946a6bf6bece65f0e52773ccf0fb7e3ce1
+
 
 
 ##################################################### FUNCTIONS #####################################################
