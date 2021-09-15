@@ -149,7 +149,7 @@ class processor:
         return corr_df.iloc[0, 1]
 
     @staticmethod
-    def get_best_correlation(df1, df2, start_date, end_date, percentage=True, periods_range=range(0, 120)):
+    def get_best_correlation(df1, df2, start_date, end_date, percentage=True, periods_range=range(0, 90)):
         correlations_list = []
 
         for n_period in periods_range:
@@ -168,7 +168,7 @@ class processor:
             return min(correlations_list), correlations_list.index(min(correlations_list)) + 1
 
     @staticmethod
-    def get_best_quarterly_correlation(df1, df2, start_date, end_date, percentage=True, periods_range=range(0, 120)):
+    def get_best_quarterly_correlation(df1, df2, start_date, end_date, percentage=True, periods_range=range(0, 90)):
         df2_q = df2.asfreq('QS')
         correlations_list = []
 
@@ -203,6 +203,17 @@ class processor:
                                       precision=precision)) + currency_name + symbol + ' regard anterior year'
 
         return current_value, delta_value
+
+    @staticmethod
+    def get_max_value(df1, start_date, end_date):
+        start_date_str = str(start_date)
+        end_date_str = str(end_date)
+        df_filtered = processor.filter_between_dates(df1, start_date_str, end_date_str)
+
+        return df_filtered.max(), df_filtered.idxmax()
+
+
+
 
 ##### TO CHECK
 def read_data_(path: str):

@@ -85,6 +85,8 @@ class front:
     @staticmethod
     def main_metrics(data, start_date, end_date, cols, quarterly = True, multiplier = 100, currency_name = ''): 
         absolute_data, percentage_data = data["left_plot"]["dfs"], data["right_plot"]["dfs"]
+        #ENCUENTRA LA MANERA DE LEER EL DATAFRAME DEL CPI EN ESTA FUNCION Y PASARLO A LAS LINEAS 116 Y 118 COMO PRIMER PARAMETRO DE LA FUNCION
+        #TAMBIEN PUEDE DESARROLLARSE LA FUNCION QUE DEJE LOS CALCULOS DE CORRELACION EN LA BB.DD O DF Y LEERLOS DE AHI DIRECTAMENTE
         names = data["left_plot"]["legends"]
         
 
@@ -103,22 +105,19 @@ class front:
                 independent_percentage_current, independent_percentage_delta = processor.calculate_metrics(percentage_data[ind],
                             start_date,
                             end_date,
-                            multiplier = multiplier,
-                            currency_name = '',
-                            symbol = '%',
-                            quarterly = False,
-                            precision = 4)
+                            multiplier=multiplier,
+                            currency_name='',
+                            symbol='%',
+                            quarterly=False,
+                            precision=4)
                 # Data extraction
                 st.metric(f'{names[ind]} change at ' + str(end_date), value = str(round(float(independent_percentage_current), 2)) + '%')
 
             with cols[2]:
-                value, delay = processor.get_best_quarterly_correlation(absolute_data[ind], absolute_data[ind], start_date, end_date)
-
-                value_past_year, delay_past_year = processor.get_best_quarterly_correlation(absolute_data[ind], absolute_data[ind], start_date, end_date - timedelta(days=365))
+                value, date = processor.get_max_value(percentage_data[ind], start_date, end_date)
 
                 # Plot
-                st.metric(f'{names[ind]} affects CPI within:', value = str(delay) + ' months',
-                            delta = str(delay - delay_past_year) + ' months regard anterior year')
+                st.metric(f'{names[ind]} highest annual change:', value=str(date[0]).split(' ')[0])
 
             with cols[3]:
-                st.metric('With a correlation of:', value = str(round(value * 100, 1)) + ' %')
+                st.metric('With a value of:', value=str(round(value[0] * 100, 1)) + ' %')

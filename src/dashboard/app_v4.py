@@ -39,16 +39,6 @@ def main():
 
     st.title(f"Inflation metrics for {menu} :flag-{menu.lower()}:")
 
-
-    col1, col2 = st.columns(2)
-    with col1.expander("What is showed in this column?"):
-        st.write("This project is made to compare the CPI index with different metrics which are related to it."
-                 " In this column are showed the nominal value metrics")
-
-    with col2.expander("What is showed in this column?"):
-        st.write("In this column are showed the annual change metrics with the correlation between them and the CPI")
-
-
     # Load country settings
     json_path = '..' + sep + 'utils' + sep + "country_data.json"
     country_data = md.read_json_to_dict(json_path)[menu]
