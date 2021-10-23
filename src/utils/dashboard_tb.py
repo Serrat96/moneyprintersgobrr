@@ -85,8 +85,6 @@ class front:
     @staticmethod
     def main_metrics(data, start_date, end_date, cols, quarterly = True, multiplier = 100, currency_name = ''): 
         absolute_data, percentage_data = data["left_plot"]["dfs"], data["right_plot"]["dfs"]
-        #ENCUENTRA LA MANERA DE LEER EL DATAFRAME DEL CPI EN ESTA FUNCION Y PASARLO A LAS LINEAS 116 Y 118 COMO PRIMER PARAMETRO DE LA FUNCION
-        #TAMBIEN PUEDE DESARROLLARSE LA FUNCION QUE DEJE LOS CALCULOS DE CORRELACION EN LA BB.DD O DF Y LEERLOS DE AHI DIRECTAMENTE
         names = data["left_plot"]["legends"]
         
 
